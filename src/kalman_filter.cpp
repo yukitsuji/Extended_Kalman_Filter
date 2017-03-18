@@ -18,17 +18,20 @@ void KalmanFilter::Init(VectorXd &x_in, MatrixXd &P_in, MatrixXd &F_in,
 }
 
 void KalmanFilter::Predict() {
-  /**
-  TODO:
-    * predict the state
-  */
+  // Q_ is updated in FusionEKF.cpp
+  x_ = F_ * x_ + Q_;
+  P_ = F_ * P_ * F_.transpose() + Q_;
 }
 
 void KalmanFilter::Update(const VectorXd &z) {
-  /**
-  TODO:
-    * update the state by using Kalman Filter equations
-  */
+  MatrixXd diff = z - H_ * x_;
+  MatrixXd S = H_ * P_ * H_.transpose() + R_;
+  MatrixXd K = P_ * H_.transpose() * S.inverse();
+
+  size_t x_size = x_.size();
+  MatrixXd I = MatrixXd::Identity(x_size, x_size);
+  x_ = x_ + K * diff;
+  P_ = (I - K * H_) * P_
 }
 
 void KalmanFilter::UpdateEKF(const VectorXd &z) {
