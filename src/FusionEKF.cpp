@@ -57,6 +57,7 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
       * Initialize the state ekf_.x_ with the first measurement.
       * Create the covariance matrix.
       * Remember: you'll need to convert radar from polar to cartesian coordinates.
+      TODO: Calculate the Jacobian Matrix?
     */
     // first measurement
     cout << "EKF: " << endl;
@@ -66,6 +67,7 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
     if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
       /**
       Convert radar from polar to cartesian coordinates and initialize state.
+      TODO: meas_rho meas_phi meas_rho_do -> px, py, vx, vy
       */
     }
     else if (measurement_pack.sensor_type_ == MeasurementPackage::LASER) {
@@ -90,6 +92,7 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
      * Update the process noise covariance matrix.
      * Use noise_ax = 9 and noise_ay = 9 for your Q matrix.
    */
+   ekf_.x_ << measurement_package.;#TODO
 
   ekf_.Predict();
 
